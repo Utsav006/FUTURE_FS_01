@@ -25,13 +25,19 @@ app.post('/api/contact', async (req, res) => {
   }
 
   try {
-    // Reverted to the default service abstraction for cloud deployment compatibility
+    // Configured to force IPv4 compatibility on Render's free tier
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      requireTLS: true,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
+      tls: {
+        rejectUnauthorized: false
+      }
     });
 
     // Email options structure

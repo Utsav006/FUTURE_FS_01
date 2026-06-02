@@ -210,7 +210,6 @@ a {
   max-width: 100%;
   height: auto;
   border-radius: 20px;
-  /* Placeholder dimensions if image is missing */
   min-width: 300px; 
   min-height: 400px;
   background: var(--bg-secondary);
@@ -290,14 +289,39 @@ section {
   font-weight: 500;
 }
 
-/* PORTFOLIO GRID */
+/* PORTFOLIO GRID - HORIZONTAL SCROLL */
 .project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  display: flex;
   gap: 30px;
+  overflow-x: auto;
+  padding-bottom: 30px; 
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; 
+}
+
+/* Custom Themed Scrollbar */
+.project-grid::-webkit-scrollbar {
+  height: 10px;
+}
+
+.project-grid::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.project-grid::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 10px;
+}
+
+.project-grid::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
 }
 
 .project-card {
+  flex: 0 0 calc(33.333% - 20px); 
+  scroll-snap-align: start;
   background: var(--bg-secondary);
   border: 1px solid var(--border);
   padding: 40px;
@@ -602,5 +626,15 @@ footer {
 
   .detail-sidebar {
     width: 100%;
+  }
+  
+  .project-card {
+    flex: 0 0 calc(50% - 15px); /* Shows 2 cards on tablet */
+  }
+}
+
+@media (max-width: 600px) {
+  .project-card {
+    flex: 0 0 100%; /* Shows 1 card on mobile */
   }
 }
